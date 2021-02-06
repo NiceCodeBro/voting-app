@@ -1,59 +1,75 @@
-# Frontend Boilerplate with React, Redux & TypeScript
 
-A bare minimum react-hooks-redux-webpack-typescript boilerplate with TodoMVC example.
+  
+# cra-redux-observable
 
-Note that this project does not include **Server-Side Rendering**, **Static code analysis**, **Testing Frameworks**
-If needed, please fork this repository and add your own that meets your requirements.
 
-Ideal for creating React apps from the scratch.
+This project is an [Create React App ](https://github.com/facebookincubator/create-react-app) boilerplate with integration of Redux, and Redux-observable for quick starting your redux applications with the power of RxJs
 
-## Contains
 
-- [x] [Typescript](https://www.typescriptlang.org/) 3.8
-- [x] [React](https://facebook.github.io/react/) 16.12
-- [x] [Redux](https://github.com/reactjs/redux) 4
-- [x] [Redux Thunk](https://github.com/reduxjs/redux-thunk) 2.3
-- [x] [React Router](https://github.com/ReactTraining/react-router) 5.1
-- [x] [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension)
-- [x] [TodoMVC example](http://todomvc.com)
+### [Demo](https://mmajdanski.github.io/cra-redux-observable/)
 
-### Build tools
+Before starting with project, please headover to the [Create-React-App](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md
+) documentation.
 
-- [x] [Webpack](https://webpack.github.io) 4
-  - [x] [Tree Shaking](https://medium.com/@Rich_Harris/tree-shaking-versus-dead-code-elimination-d3765df85c80)
-  - [x] [Webpack Dev Server](https://github.com/webpack/webpack-dev-server)
-- [x] [Typescript Loader](https://github.com/TypeStrong/ts-loader)
-- [x] [PostCSS Loader](https://github.com/postcss/postcss-loader)
-  - [x] [PostCSS Preset Env](https://preset-env.cssdb.org/)
-  - [x] [CSS modules](https://github.com/css-modules/css-modules)
-- [x] [React Hot Loader](https://github.com/gaearon/react-hot-loader)
-- [x] [Mini CSS Extract Plugin](https://github.com/webpack-contrib/mini-css-extract-plugin)
-- [x] [HTML Webpack Plugin](https://github.com/ampedandwired/html-webpack-plugin)
 
-## Installation
 
-```
-$ npm ci
-```
 
-## Running
 
-```
-$ npm start
-```
+## Getting Started
 
-## Build
+1. Clone this repo
 
-```
-$ npm run build
-```
+`https://github.com/mmajdanski/cra-redux-observable.git`
 
-## Deploy (to the [GitHub Pages](https://pages.github.com/))
+2. To run, go to project folder and run
 
-```
-$ npm run deploy
-```
+`$ npm install`
+or
+`$ yarn install` (if you are using yarn)
 
-# License
+3. Now start dev server by running -
 
-MIT
+`$ npm start`
+or
+`$ yarn start`
+
+4. If the browser does not automatically for any reason visit - http://localhost:3000/
+
+For more create-react-app commands refer `package.json`
+
+## Code structure
+
+### Components
+Most of the generic layout is built in `/src/App.js` just as found in the original Create-React-App. The key thing to notice here is that we have included our one and only component to that file: namely `<CounterComponent />` which has been imported from our `/src/components` folder. I recommend you keep all of your components there unless you feel need to move them elsewhere.
+
+### The Redux Store
+
+The majority of the bootstrap code for the store is located in `/src/store.js`. By default, the [Redux Devtools Extension](https://github.com/zalmoxisus/redux-devtools-extension)  is enabled so feel free to open that in Google Chrome to see what our Redux store looks like. 
+
+**Note:** You will only benefit from having this enabled if you install the Google Chrome Extension which can be found at the above Redux Devtools hyperlink.
+
+### Redux-Observable Integration
+
+The logic for your reducers (aka Redux logic) will all be contained with `/src/reducers/`. The logic for your epics (aka Redux-Observable) will all be contained in `/src/epics`.
+
+#### Understand that every action will go to a Reducer before going into any Epic. 
+
+
+
+## Recommended Resources
+
+[Official Facebook Documentation on React](https://reactjs.org/docs/getting-started.html) 
+
+[Official Redux Documentation](https://redux.js.org/)
+
+[Official Redux-Observable Documentation](https://redux-observable.js.org/)
+
+[Official RxJS Documentation](https://rxjs-dev.firebaseapp.com/)
+
+## For any updates to the repo, please visit the changelog
+
+Located [here](https://github.com/mmajdanski/cra-redux-observable/blob/master/CHANGELOG.md).
+
+## Something Missing or Incorrect?
+
+File an issue [here](https://github.com/mmajdanski/cra-redux-observable/issues).
