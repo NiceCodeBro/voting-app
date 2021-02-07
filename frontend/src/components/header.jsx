@@ -1,9 +1,10 @@
 
 
 import React from "react";
-import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import { Navbar, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { LoginModal } from './LoginModal'
+import  LoginModal from './LoginModal'
+
 class HeaderComponent extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -35,16 +36,24 @@ class HeaderComponent extends React.PureComponent {
                     <Navbar.Brand href="#home">
                         Voting App
                     </Navbar.Brand>
-                    <Button variant="outline-info" 
+                    {this.props.userCredentials === undefined ? <Button variant="outline-info" 
                             style={{width:'100px', height: '35px', float: 'right'}}
                             onClick={() => this.handleLoginModalOpen()}>
                         Login
-                    </Button>
+                    </Button> : <span style={{color:'white'}}>{this.props.userCredentials.user.email}</span>}
                 </Navbar>    
-                <LoginModal onModalClose={() => this.handleLoginModalClose()} show={this.state.isLoginModalOpen}/> 
-            </>   
+                {this.state.isLoginModalOpen && <LoginModal onModalClose={() => this.handleLoginModalClose()} show={this.state.isLoginModalOpen}/>}
+            </> 
       )
     }
 }
 
-export default connect(null, null)(HeaderComponent);
+const mapStateToProps = (state) => {
+    return {
+        userCredentials: state.loginReducer.userCredentials
+    }
+  }
+
+const mapDispatchToProps = (dispatch) => {return {}}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderComponent);
