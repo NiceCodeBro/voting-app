@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import { addComment } from '../actions/voteActions'
 import { CommentComponent } from '../components/comment';
+import uuid from 'react-uuid';
 
 class VoteComponent extends React.Component {
     constructor(props) {
@@ -35,7 +36,7 @@ class VoteComponent extends React.Component {
                 <button type='button' onClick={() => this.handleAddComment()}>+</button>
                 {
                     this.props.comments && this.props.comments.map((comment) => (
-                        <CommentComponent comment={comment} />
+                        <CommentComponent key={uuid()} comment={comment} />
                     ))
                 }
             </div>
