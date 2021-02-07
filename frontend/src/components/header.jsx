@@ -1,9 +1,8 @@
-
-
 import React from "react";
 import { Navbar, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import  LoginModal from './LoginModal'
+import LoginModal from './LoginModal'
+import { LoginActions } from '../actions/loginActions'
 
 class HeaderComponent extends React.PureComponent {
     constructor(props) {
@@ -36,11 +35,14 @@ class HeaderComponent extends React.PureComponent {
                     <Navbar.Brand href="#home">
                         Voting App
                     </Navbar.Brand>
-                    {this.props.userCredentials === undefined ? <Button variant="outline-info" 
+                    {this.props.userCredentials === undefined                    ? 
+                    <Button variant="outline-info" 
                             style={{width:'100px', height: '35px', float: 'right'}}
-                            onClick={() => this.handleLoginModalOpen()}>
-                        Login
-                    </Button> : <span style={{color:'white'}}>{this.props.userCredentials.user.email}</span>}
+                            onClick={() => this.handleLoginModalOpen()}>Login
+                    </Button>                                                     : 
+                    <span style={{color:'white'}}>{this.props.userCredentials.user.email}
+                        <Button variant="outline-info" style={{width:'100px', height: '35px', float: 'right'}} onClick={() => this.props.logout()}>Logout</Button>
+                    </span>}
                 </Navbar>    
                 {this.state.isLoginModalOpen && <LoginModal onModalClose={() => this.handleLoginModalClose()} show={this.state.isLoginModalOpen}/>}
             </> 
@@ -54,6 +56,12 @@ const mapStateToProps = (state) => {
     }
   }
 
-const mapDispatchToProps = (dispatch) => {return {}}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logout: () => {
+            dispatch(LoginActions.logout())
+        }
+    }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderComponent);

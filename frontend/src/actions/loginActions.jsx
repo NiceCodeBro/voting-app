@@ -2,11 +2,17 @@ export class LoginActions {
     static LOGIN() {
         return 'LoginActions.LOGIN';
     }
+
     static LOGIN_SUCCESS() {
         return 'LoginActions.LOGIN_SUCCESS';
     }
+
     static LOGIN_FAILED() {
         return 'LoginActions.LOGIN_FAILED';
+    }
+
+    static LOGOUT() {
+        return 'LoginActions.LOGOUT';
     }
 
     static login(aEmail, aPassword) {
@@ -30,6 +36,12 @@ export class LoginActions {
         return { 
             type: LoginActions.LOGIN_FAILED,
             payload: aError
+        }
+    }
+
+    static logout() {
+        return {
+            type: LoginActions.LOGOUT
         }
     }
 }
