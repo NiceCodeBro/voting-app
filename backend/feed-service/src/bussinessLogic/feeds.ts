@@ -22,3 +22,8 @@ export async function createFeed(
 
   return await feedAccess.createFeed(newItem);
 }
+
+
+export async function getFeeds(): Promise<any> {
+  return await feedAccess.getTodos();
+}

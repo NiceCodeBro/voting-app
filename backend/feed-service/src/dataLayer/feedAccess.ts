@@ -3,10 +3,10 @@ import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 const dynamodb = require('aws-sdk/clients/dynamodb');
 
 const config = {
-    region: '',
-    endpoint: '',
-    accessKeyId: '',
-    secretAccessKey: ''
+  region: '',
+  endpoint: '',
+  accessKeyId: '',
+  secretAccessKey: ''
 };
 
 
@@ -26,6 +26,15 @@ export class FeedAccess {
       }).promise()
 
     return feedItem;
+  }
+
+  async getTodos(): Promise<any> {
+    return await this.docClient.scan({
+      TableName : this.feedTableName
+    }, function(err, data) {
+      if (err) console.log('Error occured on getting a single toDoItem');
+      else     console.log('Data has been fetched from db');
+    }).promise();
   }
 }
 

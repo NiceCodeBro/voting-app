@@ -1,9 +1,9 @@
 import { Router, Request, Response } from 'express';
-import { VoteRouter } from './vote/routes/vote.router';
+import { FeedRouter } from './feed/routes/feed.router';
 
 const router: Router = Router();
 
-router.use('/vote', VoteRouter);
+router.use('/feed', FeedRouter);
 
 router.get('/', async (req: Request, res: Response) => {
   res.send(`V0`);

@@ -1,8 +1,8 @@
-import {Router, Request, Response} from 'express';
-import {NextFunction} from 'connect';
+import { Router, Request, Response } from 'express';
+import { NextFunction } from 'connect';
 import * as jwt from 'jsonwebtoken';
 import * as c from '../../../../config/config';
-import { createFeed } from '../../../../bussinessLogic/feeds'
+import { createFeed, getFeeds } from '../../../../bussinessLogic/feeds'
 const router: Router = Router();
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
@@ -30,13 +30,21 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
 }
 
 
-// Create feed with metadata
+// Create feed with 
 router.post('/',
     //requireAuth,
     async (req: Request, res: Response) => {
-      console.log('selim');
       await createFeed('');
-      res.status(201).send('selim');
-    });
+      res.status(201).send('created');
+});
 
-export const VoteRouter: Router = router;
+
+// Get all feeds
+router.get('/',
+    //requireAuth,
+    async (req: Request, res: Response) => {
+      const feeds = await getFeeds();
+      res.status(200).send(feeds.Items);
+});
+
+export const FeedRouter: Router = router;
