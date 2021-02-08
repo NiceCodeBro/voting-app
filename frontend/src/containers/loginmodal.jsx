@@ -74,12 +74,7 @@ class LoginModal extends React.Component {
     }
 }
 
-
-const mapStateToProps = (state) => {
-    return {
-    }
-  }
-
+const mapStateToProps = (state) => {return {}}
 const mapDispatchToProps = (dispatch) => {
     return {
         login: (aEmail, aPassword) => {
