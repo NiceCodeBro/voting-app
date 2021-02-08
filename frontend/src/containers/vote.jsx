@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { addComment } from '../actions/voteActions'
-import { CommentComponent } from '../components/comment';
+import { FeedActions } from '../actions/feedActions'
 import uuid from 'react-uuid';
+import { FeedComponent } from "../components/feed/feed";
 
 class VoteComponent extends React.Component {
     constructor(props) {
@@ -12,7 +12,11 @@ class VoteComponent extends React.Component {
         };
 
         this.handleTextChange = this.handleTextChange.bind(this);
-      }
+    }
+
+    componentDidMount() {
+        this.props.getAllFeeds();
+    }
 
     handleTextChange(aText) {
         this.setState({
@@ -30,13 +34,18 @@ class VoteComponent extends React.Component {
     render() {
         return(
             <div>
-                <h2>{this.props.counter}</h2>
-                <input type="text" value={this.state.textValue} onChange={e => this.handleTextChange(e.target.value)} />
-    
-                <button type='button' onClick={() => this.handleAddComment()}>+</button>
+                <br/>
+
+                {this.props.userCredentials && (<div>
+                    <input type="text" value={this.state.textValue} onChange={e => this.handleTextChange(e.target.value)} />
+                    <button type='button' onClick={() => this.handleAddComment()}>+</button>
+                </div>)}
+
+                <br/>
+
                 {
-                    this.props.comments && this.props.comments.map((comment) => (
-                        <CommentComponent key={uuid()} comment={comment} />
+                    this.props.feeds && this.props.feeds.map((feed) => (
+                        <FeedComponent key={uuid()} title={feed.id}/>
                     ))
                 }
             </div>
@@ -46,14 +55,19 @@ class VoteComponent extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        comments: state.voteReducer.comments
+        comments: state.feedReducer.comments,
+        feeds: state.feedReducer.feeds,
+        userCredentials: state.loginReducer.userCredentials
     }
   }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         addComment: (aComment) => {
-            dispatch(addComment(aComment))
+            dispatch(FeedActions.addComment(aComment))
+        },
+        getAllFeeds: () => {
+            dispatch(FeedActions.getAllFeeds())
         }
     }
 }
