@@ -1,8 +1,4 @@
 export class FeedActions {
-  static ADD_COMMENT() {
-      return 'FeedActions.ADD_COMMENT';
-  }
-
   static GET_ALL_FEEDS() {
     return 'FeedActions.GET_ALL_FEEDS';
   }
@@ -15,11 +11,16 @@ export class FeedActions {
     return 'FeedActions.GET_ALL_FEEDS_FAILED';
   }
 
-  static addComment(aComment) {
-    return { 
-      type: FeedActions.ADD_COMMENT, 
-      payload: aComment 
-    }
+  static ADD_FEED() {
+    return 'FeedActions.ADD_FEED';
+  }
+
+  static ADD_FEED_SUCCESSFUL() {
+    return 'FeedActions.ADD_FEED_SUCCESSFUL';
+  }
+
+  static ADD_FEED_FAILED() {
+    return 'FeedActions.ADD_FEED_FAILED';
   }
 
   static getAllFeeds() {
@@ -36,9 +37,32 @@ export class FeedActions {
   }
 
   static getAllFeedsFailed(aError) {
-    console.log('getAllFeedsFailed')
     return { 
       type: FeedActions.GET_ALL_FEEDS_FAILED,
+      payload: aError
+    }
+  }
+
+  static addFeed(aFeed = undefined, aToken = undefined) {
+    return { 
+      type: FeedActions.ADD_FEED,
+      payload: {
+        item: aFeed,
+        token: aToken
+      }
+    }
+  }
+
+  static addFeedSuccessful(aFeeds) {
+    return { 
+      type: FeedActions.ADD_FEED_SUCCESSFUL,
+      payload: aFeeds
+    }
+  }
+
+  static addFeedFailed(aError) {
+    return { 
+      type: FeedActions.ADD_FEED_FAILED,
       payload: aError
     }
   }

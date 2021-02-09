@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import LoginModal from './LoginModal'
+import LoginModal from './loginmodal';
 import { LoginActions } from '../actions/loginActions'
 
 class HeaderComponent extends React.PureComponent {

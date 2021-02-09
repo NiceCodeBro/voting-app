@@ -25,7 +25,7 @@ class VoteComponent extends React.Component {
     }
       
     handleAddComment() {
-        this.props.addComment(this.state.textValue);
+        this.props.addFeed(this.state.textValue, this.props.userCredentials.token);
         this.setState({
             textValue: ''
         });
@@ -35,8 +35,7 @@ class VoteComponent extends React.Component {
         return(
             <div>
                 <br/>
-
-                {this.props.userCredentials && (<div>
+                {this.props.userCredentials !== undefined && (<div>
                     <input type="text" value={this.state.textValue} onChange={e => this.handleTextChange(e.target.value)} />
                     <button type='button' onClick={() => this.handleAddComment()}>+</button>
                 </div>)}
@@ -63,11 +62,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addComment: (aComment) => {
-            dispatch(FeedActions.addComment(aComment))
-        },
         getAllFeeds: () => {
             dispatch(FeedActions.getAllFeeds())
+        },
+        addFeed: (aFeed, aToken) => {
+            dispatch(FeedActions.addFeed(aFeed, aToken))
         }
     }
 }

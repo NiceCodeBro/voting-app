@@ -17,6 +17,24 @@ const getAllFeeds = action$ => action$.pipe(
   )
 );
 
+const addFeed = action$ => action$.pipe(
+  ofType(FeedActions.ADD_FEED),
+  mergeMap(action =>
+    from(axios.post(`${feedServiceHost}/`, {
+      item: action.payload.item
+    }, {
+      headers: {
+        'Authorization': `Barrier ${action.payload.token}` 
+      }
+    }))
+    .pipe(
+      map(response => FeedActions.addFeedSuccessful(response)),
+      catchError(error => FeedActions.addFeedFailed(error))
+    )
+  )
+);
+
 export const feedEpics = [
-    getAllFeeds
+    getAllFeeds,
+    addFeed
 ]

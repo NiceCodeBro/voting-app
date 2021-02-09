@@ -4,17 +4,12 @@ import { SendState } from '../enums/sendstate';
 const initialState = {
     comments: [],
     feeds: [],
-    getAllFeedsState: SendState.UNKNOWN
+    getAllFeedsState: SendState.UNKNOWN,
+    addFeedState: SendState.UNKNOWN
 };
 
 export const feedReducer = (state = initialState, action) => {
     switch (action.type) {
-      case FeedActions.ADD_COMMENT: {
-        return {
-            ...state,
-            comments: state.comments.concat(action.payload)
-        };
-      }
       case FeedActions.GET_ALL_FEEDS: {
         return {
             ...state,
@@ -32,6 +27,25 @@ export const feedReducer = (state = initialState, action) => {
         return {
             ...state,
             getAllFeedsState: SendState.FAILED
+        };
+      }
+      case FeedActions.ADD_FEED: {
+        return {
+            ...state,
+            addFeedState: SendState.PENDING
+        };
+      }
+      case FeedActions.ADD_FEED_SUCCESSFUL: {
+        return {
+            ...state,
+            addFeedState: SendState.SUCCESS,
+            feeds: state.feeds.concat(action.payload.data)
+        };
+      }
+      case FeedActions.ADD_FEED_FAILED: {
+        return {
+            ...state,
+            addFeedState: SendState.FAILED
         };
       }
       default:

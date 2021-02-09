@@ -16,7 +16,6 @@ export const loginReducer = (state = initialState, action) => {
         };
       }
       case LoginActions.LOGIN_SUCCESS: {
-        console.log(action.payload)
         return {
             ...state,
             loginState: SendState.SUCCESS,
