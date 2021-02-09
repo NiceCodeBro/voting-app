@@ -32,10 +32,16 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
 
 // Create feed with 
 router.post('/',
-    //requireAuth,
+    requireAuth,
     async (req: Request, res: Response) => {
-      await createFeed('');
-      res.status(201).send('created');
+      const authHeader = req.headers.authorization;
+      const authSplit = authHeader.split(" ");
+      const token = authSplit[1];
+
+      const item = req.body.item;
+
+      const createdItem = await createFeed(item, token);
+      res.status(201).send(createdItem);
 });
 
 
