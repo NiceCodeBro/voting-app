@@ -11,9 +11,22 @@ export class LoginActions {
         return 'LoginActions.LOGIN_FAILED';
     }
 
+    static REGISTER() {
+        return 'LoginActions.REGISTER';
+    }
+
+    static REGISTER_SUCCESS() {
+        return 'LoginActions.REGISTER_SUCCESS';
+    }
+
+    static REGISTER_FAILED() {
+        return 'LoginActions.REGISTER_FAILED';
+    }
+
     static LOGOUT() {
         return 'LoginActions.LOGOUT';
     }
+    
 
     static login(aEmail, aPassword) {
         return { 
@@ -35,6 +48,30 @@ export class LoginActions {
     static login_failed(aError) {
         return { 
             type: LoginActions.LOGIN_FAILED,
+            payload: aError
+        }
+    }
+
+    static register(aEmail, aPassword) {
+        return { 
+            type: LoginActions.REGISTER, 
+            payload: {
+                email: aEmail,
+                password: aPassword
+            } 
+        }
+    }
+
+    static registerSuccessful(aPayload) {
+        return { 
+            type: LoginActions.REGISTER_SUCCESS,
+            payload: aPayload
+        }
+    }
+
+    static registerFailed(aError) {
+        return { 
+            type: LoginActions.REGISTER_FAILED,
             payload: aError
         }
     }

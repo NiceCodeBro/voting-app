@@ -1,9 +1,8 @@
 import React from "react";
 import { Modal, Button } from 'react-bootstrap';
-import { LoginActions } from '../actions/loginActions';
 import { connect } from 'react-redux';
 
-class LoginModal extends React.Component {
+class LoginRegisterModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,7 +12,7 @@ class LoginModal extends React.Component {
 
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.handleLoginProcess = this.handleLoginProcess.bind(this);        
+        this.handleAccept = this.handleAccept.bind(this);        
     }
 
     handleEmailChange(aEmail) {
@@ -28,8 +27,8 @@ class LoginModal extends React.Component {
         });
     }
 
-    handleLoginProcess() {
-        this.props.login(this.state.email, this.state.password);
+    handleAccept() {
+        this.props.onAccept(this.state.email, this.state.password);
         this.props.onModalClose();
     }
 
@@ -42,7 +41,11 @@ class LoginModal extends React.Component {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                <Modal.Title>Login</Modal.Title>
+                <Modal.Title>
+                    {
+                        this.props.modalType
+                    }
+                </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <label>
@@ -64,9 +67,9 @@ class LoginModal extends React.Component {
                 <Button 
                     variant="primary" 
                     style={{width:'100px', height: '35px'}}
-                    onClick={() => this.handleLoginProcess()}
+                    onClick={() => this.handleAccept()}
                 >
-                    Login
+                    Accept
                 </Button>
                 </Modal.Footer>
             </Modal>
@@ -74,13 +77,4 @@ class LoginModal extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {return {}}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        login: (aEmail, aPassword) => {
-            dispatch(LoginActions.login(aEmail, aPassword))
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);
+export default connect(null, null)(LoginRegisterModal);
