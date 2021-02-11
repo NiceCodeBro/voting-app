@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import './style.css';
 
 class LoginRegisterModal extends React.Component {
     constructor(props) {
@@ -33,19 +34,16 @@ class LoginRegisterModal extends React.Component {
     }
 
     render() {
-        return(
+        return (
             <Modal
+                className="login-register-modal"
                 show={this.props.show}
                 onHide={this.props.onModalClose}
                 backdrop="static"
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                <Modal.Title>
-                    {
-                        this.props.modalType
-                    }
-                </Modal.Title>
+                <Modal.Title>{this.props.modalType}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <label>
@@ -58,17 +56,10 @@ class LoginRegisterModal extends React.Component {
                     </label>
                 </Modal.Body>
                 <Modal.Footer>
-                <Button variant="secondary" 
-                        onClick={this.props.onModalClose}
-                        style={{width:'100px', height: '35px'}}
-                >
+                <Button variant="secondary" onClick={this.props.onModalClose}>
                     Close
                 </Button>
-                <Button 
-                    variant="primary" 
-                    style={{width:'100px', height: '35px'}}
-                    onClick={() => this.handleAccept()}
-                >
+                <Button variant="primary" onClick={() => this.handleAccept()}>
                     Accept
                 </Button>
                 </Modal.Footer>

@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { FeedActions } from '../actions/feedActions'
+import { FeedActions } from '../../actions/feedActions';
 import uuid from 'react-uuid';
-import { FeedComponent } from "../components/feed/feed";
+import { FeedComponent } from "../../components/feed/feed";
+import './style.css';
 
-class VoteComponent extends React.Component {
+class HomeComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,16 +33,14 @@ class VoteComponent extends React.Component {
     }
 
     render() {
-        return(
+        return (
             <div>
                 <br/>
                 {this.props.userCredentials !== undefined && (<div>
                     <input type="text" value={this.state.textValue} onChange={e => this.handleTextChange(e.target.value)} />
                     <button type='button' onClick={() => this.handleAddComment()}>+</button>
                 </div>)}
-
                 <br/>
-
                 {
                     this.props.feeds && this.props.feeds.map((feed) => (
                         <FeedComponent key={uuid()} title={feed.id}/>
@@ -58,7 +57,7 @@ const mapStateToProps = (state) => {
         feeds: state.feedReducer.feeds,
         userCredentials: state.loginReducer.userCredentials
     }
-  }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -71,4 +70,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(VoteComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeComponent);

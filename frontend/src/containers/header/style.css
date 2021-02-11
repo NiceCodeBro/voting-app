@@ -1,0 +1,15 @@
+.header-component .header-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.header-component .btn {
+    width: 100px;
+    height: 35px;
+    float: right;
+}
+
+.header-component .navbar {
+    justify-content: space-between;
+}
