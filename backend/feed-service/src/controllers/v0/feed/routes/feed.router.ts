@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import { NextFunction } from 'connect';
 import * as jwt from 'jsonwebtoken';
 import * as c from '../../../../config/config';
-import { createFeed, getFeeds } from '../../../../bussinessLogic/feeds'
+import { createFeed, getAllFeeds, getFeeds } from '../../../../bussinessLogic/feeds'
 const router: Router = Router();
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
@@ -49,7 +49,17 @@ router.post('/',
 router.get('/',
     //requireAuth,
     async (req: Request, res: Response) => {
-      const feeds = await getFeeds();
+      const feeds = await getAllFeeds();
+      res.status(200).send(feeds.Items);
+});
+
+// Get all feeds which belongs to one account
+router.get('/:email',
+    requireAuth,
+    async (req: Request, res: Response) => {
+      const {email} = req.params;
+      const feeds = await getFeeds(email);
+
       res.status(200).send(feeds.Items);
 });
 

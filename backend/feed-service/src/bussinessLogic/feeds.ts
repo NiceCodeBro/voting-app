@@ -24,6 +24,11 @@ export async function createFeed(
 }
 
 
-export async function getFeeds(): Promise<any> {
-  return await feedAccess.getTodos();
+export async function getAllFeeds(): Promise<any> {
+  return await feedAccess.getAllFeeds();
+}
+
+
+export async function getFeeds(aEmail: string): Promise<any> {
+  return await feedAccess.getFeeds(aEmail);
 }
