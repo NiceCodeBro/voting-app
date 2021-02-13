@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import LoginRegisterModal from '../../components/loginregistermodal/loginregistermodal';
 import { LoginActions } from '../../actions/loginActions';
 import { Link } from "react-router-dom";
-import './style.css'
+import './style.css';
 
 class HeaderComponent extends React.PureComponent {
     constructor(props) {
@@ -75,51 +75,6 @@ class HeaderComponent extends React.PureComponent {
                             </>
                         )}
                     </div>
-
-
-
-
-
-
-                    {/*this.props.userCredentials === undefined                    ? (
-                        <div className="login-register-buttons">
-                            <Link to="/home">
-                                <Button color="inherit">Home</Button>
-                            </Link>
-                            <Link to="/my-account">
-                            <   Button color="inherit">My Account</Button>
-                            </Link>
-                            <Button color="inherit" onClick={this.props.logout}>
-                                Logout
-                            </Button>
-
-                            <Button variant="outline-info" onClick={() => this.handleLoginModalOpen()}>
-                                    Login
-                            </Button>
-                            <Button variant="outline-info" onClick={() => this.handleRegisterModalOpen()}>
-                                    Register
-                            </Button>
-                        </div>)                                                     : 
-                        (<span style={{color:'white'}}>{this.props.userCredentials.user.email}
-                            <Button variant="outline-info" 
-                                    onClick={() => this.props.logout()}>Logout
-                            </Button>
-                    </span>)*/}
-
-                        {/*this.props.userCredentials === undefined                    ? 
-                        <div className="login-register-buttons">
-                            <Button variant="outline-info" onClick={() => this.handleLoginModalOpen()}>
-                                    Login
-                            </Button>
-                            <Button variant="outline-info" onClick={() => this.handleRegisterModalOpen()}>
-                                    Register
-                            </Button>
-                        </div>                                                     : 
-                        <span style={{color:'white'}}>{this.props.userCredentials.user.email}
-                            <Button variant="outline-info" 
-                                    onClick={() => this.props.logout()}>Logout
-                            </Button>
-                        </span>*/}
                 </Navbar>    
                 {this.state.isLoginModalOpen && 
                     <LoginRegisterModal 

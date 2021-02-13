@@ -16,7 +16,7 @@ class HomeComponent extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getAllFeeds();
+        this.props.getFeeds();
     }
 
     handleTextChange(aText) {
@@ -61,8 +61,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getAllFeeds: () => {
-            dispatch(FeedActions.getAllFeeds())
+        getFeeds: () => {
+            dispatch(FeedActions.getFeeds())
         },
         addFeed: (aFeed, aToken) => {
             dispatch(FeedActions.addFeed(aFeed, aToken))
