@@ -6,13 +6,29 @@ import axios from 'axios';
 
 const feedServiceHost = 'http://localhost:8081/api/v0/feed';
 
-const getAllFeeds = action$ => action$.pipe(
-  ofType(FeedActions.GET_ALL_FEEDS),
+const getFeeds = action$ => action$.pipe(
+  ofType(FeedActions.GET_FEEDS),
   mergeMap(action =>
     from(axios.get(`${feedServiceHost}/`))
     .pipe(
-      map(response => FeedActions.getAllFeedsSuccessful(response)),
-      catchError(error => FeedActions.getAllFeedsFailed(error))
+      map(response => FeedActions.getFeedsSuccessful(response)),
+      catchError(error => FeedActions.getFeedsFailed(error))
+    )
+  )
+);
+
+
+const getMyFeeds = action$ => action$.pipe(
+  ofType(FeedActions.GET_MY_FEEDS),
+  mergeMap(action =>
+    from(axios.get(`${feedServiceHost}/${action.payload.email}`, {
+      headers: {
+        'Authorization': `Barrier ${action.payload.token}` 
+      }
+    }))
+    .pipe(
+      map(response => FeedActions.getMyFeedsSuccessful(response)),
+      catchError(error => FeedActions.getMyFeedsFailed(error))
     )
   )
 );
@@ -35,6 +51,7 @@ const addFeed = action$ => action$.pipe(
 );
 
 export const feedEpics = [
-    getAllFeeds,
+    getFeeds,
+    getMyFeeds,
     addFeed
 ]

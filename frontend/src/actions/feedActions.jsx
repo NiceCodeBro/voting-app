@@ -1,14 +1,26 @@
 export class FeedActions {
-  static GET_ALL_FEEDS() {
-    return 'FeedActions.GET_ALL_FEEDS';
+  static GET_FEEDS() {
+    return 'FeedActions.GET_FEEDS';
   }
 
-  static GET_ALL_FEEDS_SUCCESSFUL() {
-    return 'FeedActions.SUCCESSFUL';
+  static GET_FEEDS_SUCCESSFUL() {
+    return 'FeedActions.GET_FEEDS_SUCCESSFUL';
   }
 
-  static GET_ALL_FEEDS_FAILED() {
-    return 'FeedActions.GET_ALL_FEEDS_FAILED';
+  static GET_FEEDS_FAILED() {
+    return 'FeedActions.GET_FEEDS_FAILED';
+  }
+
+  static GET_MY_FEEDS() {
+    return 'FeedActions.GET_MY_FEEDS';
+  }
+
+  static GET_MY_FEEDS_SUCCESSFUL() {
+    return 'FeedActions.GET_MY_FEEDS_SUCCESSFUL';
+  }
+
+  static GET_MY_FEEDS_FAILED() {
+    return 'FeedActions.GET_MY_FEEDS_FAILED';
   }
 
   static ADD_FEED() {
@@ -23,22 +35,46 @@ export class FeedActions {
     return 'FeedActions.ADD_FEED_FAILED';
   }
 
-  static getAllFeeds() {
+  static getFeeds() {
     return { 
-      type: FeedActions.GET_ALL_FEEDS
+      type: FeedActions.GET_FEEDS
     }
   }
 
-  static getAllFeedsSuccessful(aFeeds) {
+  static getFeedsSuccessful(aFeeds) {
     return { 
-      type: FeedActions.GET_ALL_FEEDS_SUCCESSFUL,
+      type: FeedActions.GET_FEEDS_SUCCESSFUL,
       payload: aFeeds
     }
   }
 
-  static getAllFeedsFailed(aError) {
+  static getFeedsFailed(aError) {
     return { 
-      type: FeedActions.GET_ALL_FEEDS_FAILED,
+      type: FeedActions.GET_FEEDS_FAILED,
+      payload: aError
+    }
+  }
+
+  static getMyFeeds(aToken, aEmail) {
+    return { 
+      type: FeedActions.GET_MY_FEEDS,
+      payload: {
+        email: aEmail,
+        token: aToken
+      }
+    }
+  }
+
+  static getMyFeedsSuccessful(aFeeds) {
+    return { 
+      type: FeedActions.GET_MY_FEEDS_SUCCESSFUL,
+      payload: aFeeds
+    }
+  }
+
+  static getMyFeedsFailed(aError) {
+    return { 
+      type: FeedActions.GET_MY_FEEDS_FAILED,
       payload: aError
     }
   }

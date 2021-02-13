@@ -4,29 +4,52 @@ import { SendState } from '../enums/sendstate';
 const initialState = {
     comments: [],
     feeds: [],
-    getAllFeedsState: SendState.UNKNOWN,
-    addFeedState: SendState.UNKNOWN
+    myFeeds: [],
+    getFeedsState: SendState.UNKNOWN,
+    addFeedState: SendState.UNKNOWN,
+    getMyFeedsState: SendState.UNKNOWN
 };
 
 export const feedReducer = (state = initialState, action) => {
     switch (action.type) {
-      case FeedActions.GET_ALL_FEEDS: {
+      case FeedActions.GET_FEEDS: {
         return {
             ...state,
-            getAllFeedsState: SendState.PENDING
+            getFeedsState: SendState.PENDING
         };
       }
-      case FeedActions.GET_ALL_FEEDS_SUCCESSFUL: {
+      case FeedActions.GET_FEEDS_SUCCESSFUL: {
         return {
             ...state,
             feeds: action.payload.data,
-            getAllFeedsState: SendState.SUCCESS
+            getFeedsState: SendState.SUCCESS
         };
       }
-      case FeedActions.GET_ALL_FEEDS_FAILED: {
+      case FeedActions.GET_FEEDS_FAILED: {
         return {
             ...state,
-            getAllFeedsState: SendState.FAILED
+            getFeedsState: SendState.FAILED
+        };
+      }
+      case FeedActions.GET_MY_FEEDS: {
+        return {
+            ...state,
+            getMyFeedsState: SendState.PENDING,
+            myFeeds: []
+        };
+      }
+      case FeedActions.GET_MY_FEEDS_SUCCESSFUL: {
+        return {
+            ...state,
+            getMyFeedsState: SendState.SUCCESS,
+            myFeeds: action.payload.data
+        };
+      }
+      case FeedActions.GET_MY_FEEDS_FAILED: {
+        return {
+            ...state,
+            getMyFeedsState: SendState.FAILED,
+            myFeeds: []
         };
       }
       case FeedActions.ADD_FEED: {
