@@ -1,4 +1,4 @@
-FROM node:11.5
+FROM selimdockerhub/simple-node-11.5-base:latest
 
 # Create app directory
 WORKDIR /usr/src/app
