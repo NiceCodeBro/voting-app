@@ -4,12 +4,24 @@ import { ofType } from 'redux-observable';
 import {from} from 'rxjs';
 import axios from 'axios';
 
-const feedServiceHost = 'http://localhost:8081/api/v0/feed';
+
+function getHost() {
+  if(!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    return 'http://localhost:8081/api/v0/feed';
+  } else {
+    return `${window.location.protocol}//${window.location.hostname}/api/v0/feed`;
+  }
+}
+
 
 const getFeeds = action$ => action$.pipe(
   ofType(FeedActions.GET_FEEDS),
   mergeMap(action =>
-    from(axios.get(`${feedServiceHost}/`))
+    from(axios.get(`${getHost()}/`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }))
     .pipe(
       map(response => FeedActions.getFeedsSuccessful(response)),
       catchError(error => FeedActions.getFeedsFailed(error))
@@ -21,9 +33,10 @@ const getFeeds = action$ => action$.pipe(
 const getMyFeeds = action$ => action$.pipe(
   ofType(FeedActions.GET_MY_FEEDS),
   mergeMap(action =>
-    from(axios.get(`${feedServiceHost}/${action.payload.email}`, {
+    from(axios.get(`${getHost()}/${action.payload.email}`, {
       headers: {
-        'Authorization': `Barrier ${action.payload.token}` 
+        'Authorization': `Barrier ${action.payload.token}` ,
+        'Content-Type': 'text/plain'
       }
     }))
     .pipe(
@@ -36,11 +49,12 @@ const getMyFeeds = action$ => action$.pipe(
 const addFeed = action$ => action$.pipe(
   ofType(FeedActions.ADD_FEED),
   mergeMap(action =>
-    from(axios.post(`${feedServiceHost}/`, {
+    from(axios.post(`${getHost()}/`, {
       item: action.payload.item
     }, {
       headers: {
-        'Authorization': `Barrier ${action.payload.token}` 
+        'Authorization': `Barrier ${action.payload.token}`,
+        'Content-Type': 'text/plain'
       }
     }))
     .pipe(
