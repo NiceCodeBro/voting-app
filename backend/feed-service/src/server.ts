@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 
 (async () => {
   const app = express();
-  const port = 8080;
+  const port = process.env.PRODUCTION_PORT || 8081;
 
   app.use(bodyParser.json());
 

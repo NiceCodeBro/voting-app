@@ -3,6 +3,9 @@ FROM selimdockerhub/simple-node-11.5-base:latest
 # Create app directory
 WORKDIR /usr/src/app
 
+#setting env variable
+ENV PRODUCTION_PORT=8080
+
 # Install app dependencies by copying
 # package.json and package-lock.json
 COPY package*.json ./
