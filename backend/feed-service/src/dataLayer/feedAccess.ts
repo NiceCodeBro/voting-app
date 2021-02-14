@@ -2,19 +2,18 @@ import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 
 const dynamodb = require('aws-sdk/clients/dynamodb');
 
-
 const config = {
-  region: '',
-  endpoint: '',
-  accessKeyId: '',
-  secretAccessKey: ''
+  region: process.env.AWS_REGION,
+  endpoint: process.env.DYNAMODB_END_POINT,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 };
 
 
 export class FeedAccess {
   constructor(
     private readonly docClient: DocumentClient = createDynamoDBClient(),
-    private readonly feedTableName = '') {
+    private readonly feedTableName = process.env.FEED_TABLE_NAME) {
   }
 
   async createFeed(feedItem: any): Promise<any> {
