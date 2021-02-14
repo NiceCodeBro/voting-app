@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: feed-service
+  labels:
+    app: feed-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: feed-service
+  template:
+    metadata:
+      labels:
+        app: feed-service
+    spec:
+      containers:
+      - name: feed-service
+        image: selimdockerhub/feed-service
+        imagePullPolicy: "Always"
+       # resources:
+       #   requests:
+       #     memory: "64Mi"
+       #     cpu: "250m"
+       #   limits:
+       #     memory: "1024Mi"
+      #      cpu: "500m"    
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DYNAMODB_END_POINT
+          valueFrom:
+            secretKeyRef:
+              name: feed-service-secret
+              key: DYNAMODB_END_POINT
+        - name: FEED_TABLE_NAME
+          valueFrom:
+            secretKeyRef:
+              name: feed-service-secret
+              key: FEED_TABLE_NAME
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: common-secret
+              key: JWT_SECRET               
+        - name: AWS_REGION
+          valueFrom:
+            secretKeyRef:
+              name: common-secret
+              key: AWS_REGION
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: common-secret
+              key: AWS_ACCESS_KEY_ID
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: common-secret
+              key: AWS_SECRET_ACCESS_KEY
+        
