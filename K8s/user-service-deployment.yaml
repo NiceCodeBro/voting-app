@@ -53,3 +53,8 @@ spec:
             secretKeyRef:
               name: common-secret
               key: JWT_SECRET
+        - name: AWS_REGION
+          valueFrom:
+            secretKeyRef:
+              name: common-secret
+              key: AWS_REGION
