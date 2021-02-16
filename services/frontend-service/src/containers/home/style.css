@@ -1,0 +1,24 @@
+.feed-text-areas {
+    display: flex;
+    flex-direction: column;
+}
+
+.feed-text-areas .feed-text-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+.feed-text-areas .feed-text-area label {
+    text-align: left;    
+    width: 100px;
+}
+.feed-text-areas .feed-text-area input {
+    width: 500px;
+}
+
+.create-feed-area button {
+    width: 150px;
+    border-radius: 10px;
+}

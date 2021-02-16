@@ -54,7 +54,7 @@ const addFeed = action$ => action$.pipe(
     }, {
       headers: {
         'Authorization': `Barrier ${action.payload.token}`,
-        'Content-Type': 'text/plain'
+        'Content-Type': 'application/json'
       }
     }))
     .pipe(
