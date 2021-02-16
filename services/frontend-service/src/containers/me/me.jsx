@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { FeedActions } from '../../actions/feedActions';
 import uuid from 'react-uuid';
 import './style.css';
+import { FeedComponent } from "../../components/feed/feed";
 
 class MeComponent extends React.Component {
     constructor(props) {
@@ -17,9 +18,14 @@ class MeComponent extends React.Component {
     render() {
         return (
             <div>
-                Me Component
+                <div className="user-portfolio">
+                    <div className="email">{this.props.userCredentials.user.email}</div>
+                    <br/>
+                    <img src="https://www.dogalize.com/wp-content/uploads/2017/06/cat-300572_640-200x200.jpg" alt="example img"></img>
+                </div>
+                <br/>
                 {
-                    this.props.feeds.map((feed) => <li key={uuid()}>{feed.id}</li>)
+                    this.props.feeds.map((feed) => <FeedComponent key={uuid()} feed={feed}/>)
                 }
             </div>
       )

@@ -3,9 +3,6 @@ import React from "react";
 import './style.css';
 
 export class FeedComponent extends React.Component {
-    componentDidUpdate() {
-        console.log(this.props)
-    }
     render() {
         return (
             <div className="feed-component">

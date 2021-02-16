@@ -21,11 +21,6 @@ class HomeComponent extends React.Component {
         this.props.getFeeds();
     }
 
-    componentDidUpdate() {
-        console.log(this.props.feeds)
-
-    }
-
     handleTitleChange(aText) {
         this.setState({
             title: aText
@@ -39,14 +34,11 @@ class HomeComponent extends React.Component {
     }
       
     handleAddComment() {
-        this.props.addFeed({
-            title: this.state.title,
-            content:this.state.content
-        }, this.props.userCredentials.token);
-        this.setState({
-            title: '',
-            content: ''
-        });
+        if (this.state.title !== '' && this.state.content !== '') {
+            this.props.addFeed({title: this.state.title, content:this.state.content}, this.props.userCredentials.token);
+        }
+ 
+        this.setState({title: '',content: ''});
     }
 
     render() {
@@ -54,19 +46,19 @@ class HomeComponent extends React.Component {
             <div>
                 <br/>
                 {this.props.userCredentials !== undefined && (
-                <div className="create-feed-area">
-                    <div className="feed-text-areas">
-                        <div className="feed-text-area">
-                            <label>Feed Title:</label>
-                            <input type="text" value={this.state.title} onChange={e => this.handleTitleChange(e.target.value)} />
+                    <div className="create-feed-area">
+                        <div className="feed-text-areas">
+                            <div className="feed-text-area">
+                                <label>Feed Title:</label>
+                                <input type="text" value={this.state.title} onChange={e => this.handleTitleChange(e.target.value)} />
+                            </div>
+                            <div className="feed-text-area">
+                                <label>Feed Content:</label>
+                                <input type="text" value={this.state.content} onChange={e => this.handleContentChange(e.target.value)} />
+                            </div>
                         </div>
-                        <div className="feed-text-area">
-                            <label>Feed Content:</label>
-                            <input type="text" value={this.state.content} onChange={e => this.handleContentChange(e.target.value)} />
-                        </div>
+                        <button type='button' onClick={() => this.handleAddComment()}>Create New Feed</button>
                     </div>
-                    <button type='button' onClick={() => this.handleAddComment()}>Create New Feed</button>
-                </div>
                 )}
                 <br/>
                 {

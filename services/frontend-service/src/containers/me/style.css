@@ -1,0 +1,7 @@
+.user-portfolio .email {
+    font-weight: bold;
+}
+.user-portfolio img {
+    border-radius: 50%;
+    width: 250px;
+}
