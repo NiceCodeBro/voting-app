@@ -9,7 +9,7 @@ const config = {
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 };
 
-
+// Provides an access to DB
 export class FeedAccess {
   constructor(
     private readonly docClient: DocumentClient = createDynamoDBClient(),
@@ -21,8 +21,8 @@ export class FeedAccess {
         TableName: this.feedTableName,
         Item: feedItem
       }, function(err, data) {
-        if (err) console.log('Error occured on putting an item to db',{error: err, item: feedItem});    // an error occurred
-        else     console.log('Data has been successfully added to db', {item: data});   // successful response
+        if (err) console.log(new Date().toISOString(), 'Error occured on putting an item to db', {error: err, item: feedItem});
+        else     console.log(new Date().toISOString(), 'Data has been successfully added to db', {item: data});
       }).promise()
 
     return feedItem;
@@ -32,8 +32,8 @@ export class FeedAccess {
     return await this.docClient.scan({
       TableName : this.feedTableName
     }, function(err, data) {
-      if (err) console.log('Error occured on getting a single toDoItem');
-      else     console.log('Data has been fetched from db');
+      if (err) console.log(new Date().toISOString(), 'Error occured on getting a single toDoItem');
+      else     console.log(new Date().toISOString(), 'Data has been fetched from db');
     }).promise();
   }
 
@@ -46,8 +46,8 @@ export class FeedAccess {
       },
       ScanIndexForward: false
     }, function(err, data) {
-      if (err) console.log('Error occured on getting a single toDoItem',{error: err, email: aEmail});   // an error occurred
-      else     console.log('Data has been fetched from db', {item: {"email": aEmail}});
+      if (err) console.log(new Date().toISOString(),  'Error occured on getting a single toDoItem',{error: err, email: aEmail});
+      else     console.log(new Date().toISOString(), 'Data has been fetched from db', {item: {"email": aEmail}});
     }).promise();
   }
 }
