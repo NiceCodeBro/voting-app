@@ -6,7 +6,7 @@ import { JwtPayload } from './JwtPayload'
  * @param jwtToken JWT token to parse
  * @returns a user id from the JWT token
  */
-export function parseUserId(jwtToken: string): string {
+export function parsePartitionKey(jwtToken: string): string {
   const decodedJwt = decode(jwtToken) as JwtPayload
   return decodedJwt.email;
 }

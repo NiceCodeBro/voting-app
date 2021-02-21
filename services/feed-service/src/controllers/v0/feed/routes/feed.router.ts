@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { NextFunction } from 'connect';
 import * as jwt from 'jsonwebtoken';
-import { createFeed, getAllFeeds, getFeeds } from '../../../../bussinessLogic/feeds'
+import { createFeed, getAllFeeds, getFeeds, deleteFeed } from '../../../../bussinessLogic/feeds'
 const router: Router = Router();
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
@@ -87,5 +87,28 @@ router.get('/:email',
       }
       return res.status(200).send(feeds.Items);
 });
+
+router.delete('/:feedId',
+  requireAuth,
+  async (req: Request, res: Response) => {
+    const authHeader = req.headers.authorization;
+    const authSplit = authHeader.split(" ");
+    const token = authSplit[1];
+    const {feedId} = req.params;
+
+    try{
+      await deleteFeed(feedId, token);
+      console.log('Deleted feedId: ', { feedId });
+    
+      return res.status(200).send(feedId);
+    } catch(err) {
+      console.log('Unable to delete item. Error msg:', err.message);
+    
+      return res.status(400).send('');
+    }
+});
+
+
+
 
 export const FeedRouter: Router = router;

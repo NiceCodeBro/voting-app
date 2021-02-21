@@ -1,7 +1,7 @@
 import * as uuid from 'uuid';
 import { FeedItem } from '../models/FeedItem'
 import { FeedAccess } from '../dataLayer/feedAccess'
-import { parseUserId } from '../auth/utils';
+import { parsePartitionKey } from '../auth/utils';
 
 const feedAccess = new FeedAccess();
 
@@ -11,7 +11,7 @@ export async function createFeed(
   jwtToken: string
 ): Promise<FeedItem> {
 
-  const email = parseUserId(jwtToken);
+  const email = parsePartitionKey(jwtToken);
 
   const newItem = {
     email,
@@ -31,4 +31,10 @@ export async function getAllFeeds(): Promise<any> {
 // it requests all feeds from feedAcess which belong to one registered user
 export async function getFeeds(aEmail: string): Promise<any> {
   return await feedAccess.getFeeds(aEmail);
+}
+
+export async function deleteFeed(feedId: string, jwtToken: string): Promise<any> {
+  const email = parsePartitionKey(jwtToken);
+
+  return await feedAccess.deleteFeed(feedId, email);
 }
