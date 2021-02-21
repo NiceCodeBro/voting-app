@@ -64,8 +64,26 @@ const addFeed = action$ => action$.pipe(
   )
 );
 
+
+const deleteFeed = action$ => action$.pipe(
+  ofType(FeedActions.DELETE_FEED),
+  mergeMap(action =>
+    from(axios.delete(`${getHost()}/${action.payload.feedId}`, {
+      headers: {
+        'Authorization': `Barrier ${action.payload.token}`,
+        'Content-Type': 'application/json'
+      }
+    }))
+    .pipe(
+      map(response => FeedActions.deleteFeedSuccessful(response)),
+      catchError(error => FeedActions.deleteFeedFailed(error))
+    )
+  )
+);
+
 export const feedEpics = [
     getFeeds,
     getMyFeeds,
-    addFeed
+    addFeed,
+    deleteFeed
 ]

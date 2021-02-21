@@ -6,13 +6,18 @@
     position: relative;
 }
 
-.feed-component .feed-title {
+.feed-component .content .feed-title {
     font-weight: bold;
 }
 
-.feed-component .feed-content {
+.feed-component {
         
 }
 
 .feed-component .creation-date {
+}
+
+.feed-component .actions .btn {
+    width: 100px;
+    height: 35px;
 }

@@ -12,7 +12,7 @@ class MeComponent extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getMyFeeds(this.props.userCredentials.token, this.props.userCredentials.user.email)
+        this.props.getMyFeeds(this.props.userCredentials.token, this.props.userCredentials.user.email);
     }
 
     render() {
@@ -25,7 +25,7 @@ class MeComponent extends React.Component {
                 </div>
                 <br/>
                 {
-                    this.props.feeds.map((feed) => <FeedComponent key={uuid()} feed={feed}/>)
+                    this.props.feeds.map((feed) => <FeedComponent key={uuid()} feed={feed} onDeleteClicked={(aFeedId) => this.props.deleteFeed(aFeedId, this.props.userCredentials.token)}/>)
                 }
             </div>
       )
@@ -43,6 +43,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getMyFeeds: (aToken, aEmail) => {
             dispatch(FeedActions.getMyFeeds(aToken, aEmail))
+        },
+        deleteFeed: (aFeedId, aToken) => {
+            dispatch(FeedActions.deleteFeed(aFeedId, aToken))
         }
     }
 }
