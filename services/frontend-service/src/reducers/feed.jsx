@@ -92,6 +92,12 @@ export const feedReducer = (state = initialState, action) => {
             deleteFeedState: SendState.FAILED
         };
       }
+      case FeedActions.GET_FEED_FROM_MY_FEED_REDUCER: {
+        return {
+          ...state,
+          myFeedToEdit: state.myFeeds.find((f) => f.id === action.payload)
+        };
+      }
       default:
         return state;
     }

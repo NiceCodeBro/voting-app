@@ -23,6 +23,10 @@ export class FeedActions {
     return 'FeedActions.GET_MY_FEEDS_FAILED';
   }
 
+  static GET_FEED_FROM_MY_FEED_REDUCER() {
+    return 'FeedActions.GET_FEED_FROM_MY_FEED_REDUCER';
+  }
+
   static ADD_FEED() {
     return 'FeedActions.ADD_FEED';
   }
@@ -138,4 +142,12 @@ export class FeedActions {
       payload: aError
     }
   }
+
+  static getFeedFromMyFeedReducer(aFeedId) {
+    return { 
+      type: FeedActions.GET_FEED_FROM_MY_FEED_REDUCER,
+      payload: aFeedId
+    }
+  }
+  
 }
