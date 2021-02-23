@@ -25,7 +25,7 @@ class MeComponent extends React.Component {
                 </div>
                 <br/>
                 {
-                    this.props.feeds.map((feed) => <FeedComponent key={uuid()} feed={feed} onDeleteClicked={(aFeedId) => this.props.deleteFeed(aFeedId, this.props.userCredentials.token)}/>)
+                    this.props.feeds.map((feed) => <FeedComponent key={uuid()} feed={feed} isHasActions={true} onDeleteClicked={(aFeedId) => this.props.deleteFeed(aFeedId, this.props.userCredentials.token)}/>)
                 }
             </div>
       )

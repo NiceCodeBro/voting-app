@@ -63,7 +63,7 @@ class HomeComponent extends React.Component {
                 <br/>
                 {
                     this.props.feeds && this.props.feeds.map((feed) => (
-                        <FeedComponent key={uuid()} feed={feed}/>
+                        <FeedComponent key={uuid()} feed={feed}  isHasActions={false}/>
                     ))
                 }
             </div>
