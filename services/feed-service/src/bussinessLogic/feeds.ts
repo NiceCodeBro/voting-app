@@ -38,3 +38,9 @@ export async function deleteFeed(feedId: string, jwtToken: string): Promise<any>
 
   return await feedAccess.deleteFeed(feedId, email);
 }
+
+export async function updateFeed(feedItem: object, feedId: string, jwtToken: string) {
+  const email = parsePartitionKey(jwtToken);
+
+  return await feedAccess.updateTodo(feedItem, feedId, email )
+}

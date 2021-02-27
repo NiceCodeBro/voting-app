@@ -64,6 +64,41 @@ export class FeedAccess {
       else     console.log('Data has been successfully deleted from db', {item: {"feedId": feedId, 'email':email}});
     }).promise();
   }
+
+
+  private async update(params: any) : Promise<any>{
+    await this.docClient.update(params, function(err, data) {
+      if (err) {
+          console.log("Unable to update item. Error JSON:", {error: JSON.stringify(err, null, 2)});
+      } else {
+          console.log("UpdateItem succeeded:", {data: JSON.stringify(data, null, 2)});
+      }
+    }).promise();
+  }
+
+  async updateTodo(feedItem: object, feedId: string, email: string): Promise<any> {
+    const updateExpression = "set #item = :item";
+
+    const params = {
+      TableName: this.feedTableName,
+      Key: {
+        email: email,
+        id: feedId
+      },
+      UpdateExpression: updateExpression,
+      ExpressionAttributeValues: {
+        ":item": feedItem
+      },
+      ExpressionAttributeNames: {
+        "#item": "item"
+      },
+      ReturnValues: "UPDATED_NEW"
+    }
+
+    await this.update(params);
+
+    return feedItem;
+  }
 }
 
 function createDynamoDBClient() {

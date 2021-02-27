@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { NextFunction } from 'connect';
 import * as jwt from 'jsonwebtoken';
-import { createFeed, getAllFeeds, getFeeds, deleteFeed } from '../../../../bussinessLogic/feeds'
+import { createFeed, getAllFeeds, getFeeds, deleteFeed, updateFeed } from '../../../../bussinessLogic/feeds'
 const router: Router = Router();
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
@@ -108,7 +108,25 @@ router.delete('/:feedId',
     }
 });
 
+// update a specific feed item
+router.patch('/:feedId',
+  requireAuth,
+  async (req: Request, res: Response) => {
+    const authHeader = req.headers.authorization;
+    const authSplit = authHeader.split(" ");
+    const token = authSplit[1];
+    const {feedId} = req.params;
 
+    const item = req.body.item;
+
+    try {
+      await updateFeed(item, feedId, token);
+      return res.status(200).send({id: feedId, item});
+    } catch (err) {
+      console.log('error on updating a feed:', err)
+      return res.status(400).send('');
+    }
+});
 
 
 export const FeedRouter: Router = router;
