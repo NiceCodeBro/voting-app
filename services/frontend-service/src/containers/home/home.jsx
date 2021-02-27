@@ -50,11 +50,15 @@ class HomeComponent extends React.Component {
                         <div className="feed-text-areas">
                             <div className="feed-text-area">
                                 <label>Feed Title:</label>
-                                <input type="text" value={this.state.title} onChange={e => this.handleTitleChange(e.target.value)} />
+                                <input type="text" value={this.state.title} 
+                                       onChange={e => this.handleTitleChange(e.target.value)} 
+                                />
                             </div>
                             <div className="feed-text-area">
                                 <label>Feed Content:</label>
-                                <input type="text" value={this.state.content} onChange={e => this.handleContentChange(e.target.value)} />
+                                <input type="text" value={this.state.content} 
+                                       onChange={e => this.handleContentChange(e.target.value)}
+                                />
                             </div>
                         </div>
                         <button type='button' onClick={() => this.handleAddComment()}>Create New Feed</button>

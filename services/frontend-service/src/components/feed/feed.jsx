@@ -7,7 +7,6 @@ import './style.css';
 
 export class FeedComponent extends React.Component {
     render() {
-        console.log(this.props.feed)
         return (
             <div className="feed-component">
                 <div className="feed-title">{this.props.feed.item.title}</div>

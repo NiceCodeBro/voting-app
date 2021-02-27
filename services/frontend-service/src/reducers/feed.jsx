@@ -8,7 +8,8 @@ const initialState = {
     getFeedsState: SendState.UNKNOWN,
     addFeedState: SendState.UNKNOWN,
     getMyFeedsState: SendState.UNKNOWN,
-    deleteFeedState: SendState.UNKNOWN
+    deleteFeedState: SendState.UNKNOWN,
+    updateFeedState: SendState.UNKNOWN
 };
 
 export const feedReducer = (state = initialState, action) => {
@@ -70,6 +71,24 @@ export const feedReducer = (state = initialState, action) => {
         return {
             ...state,
             addFeedState: SendState.FAILED
+        };
+      }
+      case FeedActions.UPDATE_FEED: {
+        return {
+            ...state,
+            updateFeedState: SendState.PENDING
+        };
+      }
+      case FeedActions.UPDATE_FEED_SUCCESSFUL: {
+        return {
+            ...state,
+            updateFeedState: SendState.SUCCESS
+        };
+      }
+      case FeedActions.UPDATE_FEED_FAILED: {
+        return {
+            ...state,
+            updateFeedState: SendState.FAILED
         };
       }
       case FeedActions.DELETE_FEED: {

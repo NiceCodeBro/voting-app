@@ -51,6 +51,18 @@ export class FeedActions {
     return 'FeedActions.DELETE_FEED_FAILED';
   }
 
+  static UPDATE_FEED() {
+    return 'FeedActions.UPDATE_FEED';
+  }
+
+  static UPDATE_FEED_SUCCESSFUL() {
+    return 'FeedActions.UPDATE_FEED_SUCCESSFUL';
+  }
+
+  static UPDATE_FEED_FAILED() {
+    return 'FeedActions.UPDATE_FEED_FAILED';
+  }
+
   static getFeeds() {
     return { 
       type: FeedActions.GET_FEEDS
@@ -149,5 +161,29 @@ export class FeedActions {
       payload: aFeedId
     }
   }
+
   
+  static updateFeed(aFeedToUpdate = undefined, aToken = undefined) {
+    return { 
+      type: FeedActions.UPDATE_FEED,
+      payload: {
+        feed: aFeedToUpdate,
+        token: aToken
+      }
+    }
+  }
+
+  static updateFeedSuccessful(aUpdatedFeed) {
+    return { 
+      type: FeedActions.UPDATE_FEED_SUCCESSFUL,
+      payload: aUpdatedFeed
+    }
+  }
+
+  static updateFeedFailed(aError) {
+    return { 
+      type: FeedActions.UPDATE_FEED_FAILED,
+      payload: aError
+    }
+  }
 }

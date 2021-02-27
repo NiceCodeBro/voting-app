@@ -64,6 +64,24 @@ const addFeed = action$ => action$.pipe(
   )
 );
 
+const updateFeed = action$ => action$.pipe(
+  ofType(FeedActions.UPDATE_FEED),
+  mergeMap(action =>
+    from(axios.patch(`${getHost()}/${action.payload.feed.id}`, {
+      item: action.payload.feed.item
+    }, {
+      headers: {
+        'Authorization': `Barrier ${action.payload.token}`,
+        'Content-Type': 'application/json'
+      }
+    }))
+    .pipe(
+      map(response => FeedActions.updateFeedSuccessful(response)),
+      catchError(error => FeedActions.updateFeedFailed(error))
+    )
+  )
+);
+
 
 const deleteFeed = action$ => action$.pipe(
   ofType(FeedActions.DELETE_FEED),
@@ -85,5 +103,6 @@ export const feedEpics = [
     getFeeds,
     getMyFeeds,
     addFeed,
+    updateFeed,
     deleteFeed
 ]

@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { FeedActions } from '../../../actions/feedActions';
+import { SendState } from "../../../enums/sendstate";
+import { Redirect } from "react-router-dom";
+
 import './style.css';
 
 class EditFeedComponent extends React.Component {
@@ -8,11 +11,14 @@ class EditFeedComponent extends React.Component {
         super(props);
         this.state = {
             feedTitle: '',
-            feedContent: ''
+            feedContent: '',
+            redirect: null
         };
 
         this.handleFeedContentChange = this.handleFeedContentChange.bind(this);
         this.handleFeedTitleChange = this.handleFeedTitleChange.bind(this);
+        this.updateFeed = this.updateFeed.bind(this);
+        this.handleRedirect = this.handleRedirect.bind(this);
     }
 
     componentDidMount(prevProps) {
@@ -25,6 +31,15 @@ class EditFeedComponent extends React.Component {
            this.handleFeedContentChange(this.props.feedItem.item.content);
            this.handleFeedTitleChange(this.props.feedItem.item.title);
         }
+
+        if (this.props.updateFeedState !== prevProps.updateFeedState && 
+            this.props.updateFeedState === SendState.SUCCESS) {
+            this.handleRedirect();
+        }
+    }
+
+    handleRedirect() {
+        this.setState({redirect: '/home'});
     }
 
 
@@ -40,7 +55,21 @@ class EditFeedComponent extends React.Component {
         });
     }
 
+    updateFeed() {
+        this.props.updateFeed({
+            id: this.props.feedItem.id,
+            item: {
+                title: this.state.feedTitle,
+                content: this.state.feedContent
+            }
+        }, this.props.userCredentials.token);
+    }
+
     render() {
+        if (this.state.redirect) {
+            return <Redirect to={this.state.redirect} />
+        }
+
         return (
             <div className='edit-feed-component'>
                 <div className="feed-text-areas">
@@ -53,16 +82,17 @@ class EditFeedComponent extends React.Component {
                         <input type="text" value={this.state.feedContent} onChange={e => this.handleFeedContentChange(e.target.value)} />
                     </div>
                 </div>
-                <button type='button' onClick={() => this.handleAddComment()}>Update Feed</button>
+                <button type='button' onClick={() => this.updateFeed()}>Update Feed</button>
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.feedReducer.myFeedToEdit)
     return {
-        feedItem: state.feedReducer.myFeedToEdit
+        feedItem: state.feedReducer.myFeedToEdit,
+        userCredentials: state.loginReducer.userCredentials,
+        updateFeedState: state.feedReducer.updateFeedState
     }
 }
 
@@ -70,6 +100,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getFeedFromMyFeedReducer: (aFeedId) => {
             dispatch(FeedActions.getFeedFromMyFeedReducer(aFeedId))
+        },
+        updateFeed: (aFeed, aToken) => {
+            dispatch(FeedActions.updateFeed(aFeed, aToken))
         }
     }
 }
