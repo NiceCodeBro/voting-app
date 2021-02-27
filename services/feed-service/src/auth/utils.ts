@@ -10,3 +10,9 @@ export function parsePartitionKey(jwtToken: string): string {
   const decodedJwt = decode(jwtToken) as JwtPayload
   return decodedJwt.email;
 }
+
+export function parseJwtToken(authHeader: string): string {
+  const authSplit = authHeader.split(" ");
+  const token = authSplit[1];
+  return token;
+}

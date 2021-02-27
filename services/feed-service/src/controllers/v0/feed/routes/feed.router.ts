@@ -1,7 +1,8 @@
 import { Router, Request, Response } from 'express';
 import { NextFunction } from 'connect';
 import * as jwt from 'jsonwebtoken';
-import { createFeed, getAllFeeds, getFeeds, deleteFeed, updateFeed } from '../../../../bussinessLogic/feeds'
+import { createFeed, getAllFeeds, getFeeds, deleteFeed, updateFeed } from '../../../../bussinessLogic/feeds';
+import { parseJwtToken } from '../../../../auth/utils';
 const router: Router = Router();
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
@@ -32,10 +33,7 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
 router.post('/',
     requireAuth,
     async (req: Request, res: Response) => {
-      const authHeader = req.headers.authorization;
-      const authSplit = authHeader.split(" ");
-      const token = authSplit[1];
-
+      const token = parseJwtToken(req.headers.authorization);
       const item = req.body.item;
 
       try {
@@ -91,9 +89,7 @@ router.get('/:email',
 router.delete('/:feedId',
   requireAuth,
   async (req: Request, res: Response) => {
-    const authHeader = req.headers.authorization;
-    const authSplit = authHeader.split(" ");
-    const token = authSplit[1];
+    const token = parseJwtToken(req.headers.authorization);
     const {feedId} = req.params;
 
     try{
@@ -112,9 +108,7 @@ router.delete('/:feedId',
 router.patch('/:feedId',
   requireAuth,
   async (req: Request, res: Response) => {
-    const authHeader = req.headers.authorization;
-    const authSplit = authHeader.split(" ");
-    const token = authSplit[1];
+    const token = parseJwtToken(req.headers.authorization);
     const {feedId} = req.params;
 
     const item = req.body.item;
