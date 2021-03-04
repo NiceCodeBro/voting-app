@@ -52,6 +52,21 @@ export class FeedAccess {
     }).promise();
   }
 
+
+  async getFeed(feedId: string, email: string): Promise<any> {
+    return await this.docClient.get({
+      TableName: this.feedTableName,
+      Key: {
+        email: email,
+        id: feedId
+      }
+    }, function(err, data) {
+      if (err) console.log('Error occured on getting an feed from db',{error: err, item: {feedId, email}});     // an error occurred
+      else     console.log('Data has been successfully deleted from db', {item: {"feedId": feedId, 'email':email}});
+    }).promise();
+  }
+
+
   async deleteFeed(feedId: string, email: string): Promise<any> {
     await this.docClient.delete({
       TableName: this.feedTableName,

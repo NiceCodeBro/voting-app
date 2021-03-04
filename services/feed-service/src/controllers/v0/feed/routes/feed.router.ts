@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { NextFunction } from 'connect';
 import * as jwt from 'jsonwebtoken';
-import { createFeed, getAllFeeds, getFeeds, deleteFeed, updateFeed } from '../../../../bussinessLogic/feeds';
+import { createFeed, getAllFeeds, getFeeds, deleteFeed, updateFeed, getFeed } from '../../../../bussinessLogic/feeds';
 import { parseJwtToken } from '../../../../auth/utils';
 const router: Router = Router();
 
@@ -68,7 +68,7 @@ router.get('/',
 });
 
 // Get all feeds which belongs to one account
-router.get('/:email',
+router.get('/belongTo/:email',
     requireAuth,
     async (req: Request, res: Response) => {
       const {email} = req.params;
@@ -118,6 +118,23 @@ router.patch('/:feedId',
       return res.status(200).send({id: feedId, item});
     } catch (err) {
       console.log('error on updating a feed:', err)
+      return res.status(400).send('');
+    }
+});
+
+// get a specific feed item
+router.get('/:feedId',
+  requireAuth,
+  async (req: Request, res: Response) => {
+    const token = parseJwtToken(req.headers.authorization);
+    const {feedId} = req.params;
+
+    try {
+      const item = await getFeed(feedId, token);
+      console.log(item)
+      return res.status(200).send(item);
+    } catch (err) {
+      console.log('error on getting a feed:', err)
       return res.status(400).send('');
     }
 });

@@ -33,6 +33,13 @@ export async function getFeeds(aEmail: string): Promise<any> {
   return await feedAccess.getFeeds(aEmail);
 }
 
+
+export async function getFeed(feedId: string, jwtToken: string): Promise<any> {
+  const email = parsePartitionKey(jwtToken);
+
+  return await feedAccess.getFeed(feedId, email);
+}
+
 export async function deleteFeed(feedId: string, jwtToken: string): Promise<any> {
   const email = parsePartitionKey(jwtToken);
 
