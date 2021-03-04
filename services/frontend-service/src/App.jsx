@@ -8,6 +8,7 @@ import HomeComponent from './containers/home/home';
 import HeaderComponent from './containers/header/header';
 import MeComponent from './containers/me/me';
 import EditFeedComponent from './containers/me/editfeed/editfeed';
+import FeedDetailComponent from './containers/feeddetail/feeddetail';
 
 import './App.css';
 
@@ -32,6 +33,9 @@ class App extends Component {
               </AuthRoute>
               <AuthRoute path="/me/editfeed/:feedId" type="private" exact>
                 <EditFeedComponent></EditFeedComponent>
+              </AuthRoute>
+              <AuthRoute path="/feeddetails/:feedId" type="private" exact>
+                <FeedDetailComponent></FeedDetailComponent>
               </AuthRoute>
               <Route path="/" component={HomeComponent} />
             </Switch>
