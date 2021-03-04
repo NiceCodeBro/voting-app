@@ -29,11 +29,27 @@ const getFeeds = action$ => action$.pipe(
   )
 );
 
+const getFeed = action$ => action$.pipe(
+  ofType(FeedActions.GET_FEED),
+  mergeMap(action =>
+    from(axios.get(`${getHost()}/${action.payload.feedId}`, {
+      headers: {
+        'Authorization': `Barrier ${action.payload.token}` ,
+        'Content-Type': 'application/json'
+      }
+    }))
+    .pipe(
+      map(response => FeedActions.getFeedSuccessful(response)),
+      catchError(error => FeedActions.getFeedFailed(error))
+    )
+  )
+);
+
 
 const getMyFeeds = action$ => action$.pipe(
   ofType(FeedActions.GET_MY_FEEDS),
   mergeMap(action =>
-    from(axios.get(`${getHost()}/${action.payload.email}`, {
+    from(axios.get(`${getHost()}/belongTo/${action.payload.email}`, {
       headers: {
         'Authorization': `Barrier ${action.payload.token}` ,
         'Content-Type': 'text/plain'
@@ -101,6 +117,7 @@ const deleteFeed = action$ => action$.pipe(
 
 export const feedEpics = [
     getFeeds,
+    getFeed,
     getMyFeeds,
     addFeed,
     updateFeed,

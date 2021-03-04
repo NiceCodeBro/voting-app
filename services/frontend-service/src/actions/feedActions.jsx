@@ -39,6 +39,18 @@ export class FeedActions {
     return 'FeedActions.ADD_FEED_FAILED';
   }
 
+  static GET_FEED() {
+    return 'FeedActions.GET_FEED';
+  }
+
+  static GET_FEED_SUCCESSFUL() {
+    return 'FeedActions.GET_FEED_SUCCESSFUL';
+  }
+
+  static GET_FEED_FAILED() {
+    return 'FeedActions.GET_FEED_FAILED';
+  }
+
   static DELETE_FEED() {
     return 'FeedActions.DELETE_FEED';
   }
@@ -103,6 +115,30 @@ export class FeedActions {
   static getMyFeedsFailed(aError) {
     return { 
       type: FeedActions.GET_MY_FEEDS_FAILED,
+      payload: aError
+    }
+  }
+
+  static getFeed(aFeedId, aToken) {
+    return { 
+      type: FeedActions.GET_FEED,
+      payload: {
+        feedId: aFeedId,
+        token: aToken
+      }
+    }
+  }
+
+  static getFeedSuccessful(aFeeds) {
+    return { 
+      type: FeedActions.GET_FEED_SUCCESSFUL,
+      payload: aFeeds
+    }
+  }
+
+  static getFeedFailed(aError) {
+    return { 
+      type: FeedActions.GET_FEED_FAILED,
       payload: aError
     }
   }

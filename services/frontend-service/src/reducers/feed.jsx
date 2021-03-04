@@ -5,7 +5,9 @@ const initialState = {
     comments: [],
     feeds: [],
     myFeeds: [],
+    feed: {},
     getFeedsState: SendState.UNKNOWN,
+    getFeedState: SendState.UNKNOWN,
     addFeedState: SendState.UNKNOWN,
     getMyFeedsState: SendState.UNKNOWN,
     deleteFeedState: SendState.UNKNOWN,
@@ -31,6 +33,26 @@ export const feedReducer = (state = initialState, action) => {
         return {
             ...state,
             getFeedsState: SendState.FAILED
+        };
+      }
+      case FeedActions.GET_FEED: {
+        return {
+            ...state,
+            getFeedState: SendState.PENDING
+        };
+      }
+      case FeedActions.GET_FEED_SUCCESSFUL: {
+        console.log(action.payload)
+        return {
+            ...state,
+            getFeedState: SendState.SUCCESS,
+            feed: action.payload.data.Item
+        };
+      }
+      case FeedActions.GET_FEED_FAILED: {
+        return {
+            ...state,
+            getFeedState: SendState.FAILED
         };
       }
       case FeedActions.GET_MY_FEEDS: {
