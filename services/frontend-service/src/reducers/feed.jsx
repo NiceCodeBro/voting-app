@@ -42,7 +42,6 @@ export const feedReducer = (state = initialState, action) => {
         };
       }
       case FeedActions.GET_FEED_SUCCESSFUL: {
-        console.log(action.payload)
         return {
             ...state,
             getFeedState: SendState.SUCCESS,

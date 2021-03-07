@@ -46,14 +46,16 @@ class LoginRegisterModal extends React.Component {
                 <Modal.Title>{this.props.modalType}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <label>
-                        Username: 
-                        <input type="text" value={this.state.email} onChange={e => this.handleEmailChange(e.target.value)} />
-                    </label>
-                    <label>
-                        Password: 
-                        <input type="text" value={this.state.password} onChange={e => this.handlePasswordChange(e.target.value)} />
-                    </label>
+                    <div className="content">
+                        <div className="row">
+                            <label for="username">Username:</label>
+                            <input name="username" type="text" value={this.state.email} onChange={e => this.handleEmailChange(e.target.value)} />
+                        </div>
+                        <div className="row">
+                            <label for="password">Password:</label>
+                            <input name="password" type="text" value={this.state.password} onChange={e => this.handlePasswordChange(e.target.value)} />
+                        </div>
+                    </div>
                 </Modal.Body>
                 <Modal.Footer>
                 <Button variant="secondary" onClick={this.props.onModalClose}>
