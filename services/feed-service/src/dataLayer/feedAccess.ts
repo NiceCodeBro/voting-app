@@ -1,4 +1,3 @@
-import { stringList } from 'aws-sdk/clients/datapipeline';
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 
 const dynamodb = require('aws-sdk/clients/dynamodb');
