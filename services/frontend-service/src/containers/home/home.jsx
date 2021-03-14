@@ -22,15 +22,11 @@ class HomeComponent extends React.Component {
     }
 
     handleTitleChange(aText) {
-        this.setState({
-            title: aText
-        });
+        this.setState({ title: aText });
     }
 
     handleContentChange(aText) {
-        this.setState({
-            content: aText
-        });
+        this.setState({ content: aText });
     }
       
     handleAddComment() {
@@ -56,7 +52,7 @@ class HomeComponent extends React.Component {
                             </div>
                             <div className="feed-text-area">
                                 <label>Feed Content:</label>
-                                <input type="text" value={this.state.content} 
+                                <input type="text" value={this.state.content}
                                        onChange={e => this.handleContentChange(e.target.value)}
                                 />
                             </div>
@@ -67,7 +63,7 @@ class HomeComponent extends React.Component {
                 <br/>
                 {
                     this.props.feeds && this.props.feeds.map((feed) => (
-                        <FeedComponent key={uuid()} feed={feed}  isHasActions={false}/>
+                        <FeedComponent key={uuid()} feed={feed}  hasActions={false}/>
                     ))
                 }
             </div>

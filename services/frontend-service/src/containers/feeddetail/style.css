@@ -1,0 +1,18 @@
+.feed-detail-component .add-new-comment input {
+    width: 250px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.feed-detail-component .add-new-comment button {
+    width: 50px;
+    border-radius: 5px;
+}
+
+.feed-detail-component .comment-text { 
+    display: inline-block;
+}
+
+.feed-detail-component .comment-creation {
+    margin-left: 50px;
+}

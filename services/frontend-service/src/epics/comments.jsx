@@ -29,6 +29,27 @@ const getComments = action$ => action$.pipe(
   )
 );
 
+
+const addComment = action$ => action$.pipe(
+  ofType(CommentActions.ADD_COMMENT),
+  mergeMap(action =>
+    from(axios.post(`${getHost()}/`, {
+      comment: action.payload.comment,
+      feedId: action.payload.feedId
+    }, {
+      headers: {
+        'Authorization': `Barrier ${action.payload.token}`,
+        'Content-Type': 'application/json'
+      }
+    }))
+    .pipe(
+      map(response => CommentActions.addCommentSuccessful(response)),
+      catchError(error => CommentActions.addCommentFailed(error))
+    )
+  )
+);
+
 export const commentEpics = [
-    getComments
+  getComments,
+  addComment
 ]

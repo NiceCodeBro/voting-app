@@ -48,11 +48,11 @@ class LoginRegisterModal extends React.Component {
                 <Modal.Body>
                     <div className="content">
                         <div className="row">
-                            <label for="username">Username:</label>
+                            <label htmlFor="username">Username:</label>
                             <input name="username" type="text" value={this.state.email} onChange={e => this.handleEmailChange(e.target.value)} />
                         </div>
                         <div className="row">
-                            <label for="password">Password:</label>
+                            <label htmlFor="password">Password:</label>
                             <input name="password" type="text" value={this.state.password} onChange={e => this.handlePasswordChange(e.target.value)} />
                         </div>
                     </div>

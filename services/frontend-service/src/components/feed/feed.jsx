@@ -18,7 +18,9 @@ export class FeedComponent extends React.Component {
     }
 
     handleRedirect() {
-        this.setState({redirect: `/feeddetails/${this.props.feed.id}`});
+        if (this.props.hasActions) {
+            this.setState({redirect: `/feeddetails/${this.props.feed.id}`});
+        }
     }
 
     render() {
@@ -26,12 +28,15 @@ export class FeedComponent extends React.Component {
             return <Redirect to={this.state.redirect} />
         }
         return (
-            <div className="feed-component" onClick={() => this.handleRedirect()}>
-                <div className="feed-title">{this.props.feed.item.title}</div>
-                <div className="feed-content">{this.props.feed.item.content}</div>
-                <br/>
-                <div className="creation-date">Created at: {new Date(this.props.feed.createdAt).toISOString()}</div>
-                {this.props.isHasActions && <div className="actions">
+            <div className="feed-component">
+                <div onClick={() => this.handleRedirect()}>
+                    <div className="feed-title">{this.props.feed.item.title}</div>
+                    <div className="feed-content">{this.props.feed.item.content}</div>
+                    <br/>
+                    <div className="creation-date">Created at: {new Date(this.props.feed.createdAt).toISOString()}</div>
+                </div>
+                <hr/>
+                {this.props.hasActions && <div className="actions">
                     <Link to={`/me/editfeed/${this.props.feed.id}` }>
                         <Button color="inherit">edit</Button>
                     </Link>

@@ -2,7 +2,6 @@ import { FeedActions } from '../actions/feedActions'
 import { SendState } from '../enums/sendstate';
 
 const initialState = {
-    comments: [],
     feeds: [],
     myFeeds: [],
     feed: {},
