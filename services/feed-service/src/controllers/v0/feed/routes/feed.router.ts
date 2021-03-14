@@ -4,7 +4,7 @@ import { createFeed, getAllFeeds, getFeeds, deleteFeed, updateFeed, getFeed } fr
 import { parseJwtToken } from '../../../../auth/utils';
 const router: Router = Router();
 
-// Create feed with 
+// Create feed item
 router.post('/',
     requireAuth,
     async (req: Request, res: Response) => {

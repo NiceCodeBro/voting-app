@@ -17,7 +17,7 @@ export class CommentAccess {
     private readonly commentTableName = process.env.COMMENT_TABLE_NAME) {
   }
 
-async createComment(aComment: CommentItem ): Promise<CommentItem> {
+  async createComment(aComment: CommentItem ): Promise<CommentItem> {
     await this.docClient.put({
         TableName: this.commentTableName,
         Item: aComment
