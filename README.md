@@ -54,7 +54,6 @@ root
 6. To check final end point which is exposed: type 'kubectl get services' and copy the end point of reverse proxy service
 
 # What to do
-- Allowing the user to delete and update feeds
 - Allowing the user to vote(like/dislike) a feed or its comment
 - Enable the user to write only one comment per feed
 - Enable the user to add a profile photo and some other information about himself
